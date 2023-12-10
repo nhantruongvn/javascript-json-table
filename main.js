@@ -105,6 +105,6 @@ let placeholder = document.querySelector("#data-output");
 
     placeholder.innerHTML = output;
 
-    // display client time zone
+    // display client time zone name
     var offset = Intl.DateTimeFormat().resolvedOptions().timeZone;
     document.querySelector("#time-zone").textContent = offset;
