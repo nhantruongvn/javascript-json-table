@@ -1,0 +1,26 @@
+#derbies {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+#derbies td, #derbies th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#derbies tr:nth-child(even){background-color: #f2f2f2;}
+
+#derbies tr:hover {background-color: #ddd;}
+
+#derbies th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #37003c;
+    color: white;
+    font-size: large;
+  }
+
+#time-zone-remark {
+    color: gray;
+}
