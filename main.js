@@ -4,11 +4,12 @@ https://www.youtube.com/watch?v=iiADhChRriM
 https://www.youtube.com/watch?v=iiADhChRriM
 */
 
-let derbiesString = `
+// Define the JSON string containing information of EPL derby matches
+const derbiesString = `
 [
     {
         "dateTime": "2023-09-24T13:00:00Z",
-        "matchday": "6",
+        "matchday": 6,
         "ended": true,
         "homeTeam": "Arsenal",
         "result": "2-2",
@@ -81,30 +82,41 @@ let derbiesString = `
 ]
 `;
 
-let derbies = JSON.parse(derbiesString);
+// Parse the JSON string
+const derbies = JSON.parse(derbiesString);
+console.log(typeof derbies, derbies);
 
-let placeholder = document.querySelector("#data-output");
-    let output = "";
-    for (let derby of derbies) {
-        let date = new Date(derby.dateTime).toLocaleDateString(navigator.language, {month: 'short', day: 'numeric', year: 'numeric'});
-        let time = new Date(derby.dateTime).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
-        let result = derby.result == null ? "tbd" : derby.result;
+// Get the output element
+const outputElement = document.getElementById("data-output");
 
-        output += `
-            <tr>
-                <td>${date}
-                <td>${time}
-                <td>${derby.matchday}
-                <td>${derby.homeTeam}
-                <td>${result}
-                <td>${derby.awayTeam}
-                <td>${derby.note}
-            </tr>
-        `;
+// Initialize an empty output string
+let output = "";
+
+// Loop through each derby object
+for (const derby of derbies) {
+    // Format date and time for display
+    const date = new Date(derby.dateTime).toLocaleDateString(navigator.language, {month: 'short', day: 'numeric', year: 'numeric'});
+    const time = new Date(derby.dateTime).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+
+    // Handle null result
+    const result = derby.result === null ? "TBD" : derby.result;
+
+    // Build HTML table row
+    output += `
+        <tr>
+            <td>${date}
+            <td>${time}
+            <td>${derby.matchday}
+            <td>${derby.homeTeam}
+            <td>${result}
+            <td>${derby.awayTeam}
+            <td>${derby.note}
+        </tr>
+    `;
     }
+    // Update the output element with the generated HTML
+    outputElement.innerHTML = output;
 
-    placeholder.innerHTML = output;
-
-    // display client time zone name
-    var offset = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    document.querySelector("#time-zone").textContent = offset;
+    // Display client timezone information
+    const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.getElementById("time-zone").textContent = `${timeZoneName}`;
